@@ -43,6 +43,12 @@
 - making any location user name accessible to the delivery partner can pose a ethical risk. 
 - he can randomly type a location user name. and know a real person's house address. which he might use for Unethical activities
 
+## Presentation Planning
+- Flow Diagram
+- Protype of the product
+- Video Template
+- Reference Video
+
 
 - [ ] Sign up Flow (Customer)
 	- [ ] User can input location with log latitude or Pin 
