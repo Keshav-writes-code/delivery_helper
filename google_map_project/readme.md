@@ -5,6 +5,7 @@
 
 ## Some Generalized db info.
 - db_name = delivery_management_system
+- user_name = root
 - db_pass = root
 - port = 3306
 
