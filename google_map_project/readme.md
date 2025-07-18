@@ -12,4 +12,3 @@ Go to databases
 # Step => 2
 python manage.py createsuperuser
     adjust username and password for get access or admin pannel
-
