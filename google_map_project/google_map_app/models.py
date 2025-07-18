@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
-# Create your models here.
+
 class Student(models.Model):
     name = models.CharField(max_length=100)
     roll_number = models.IntegerField()
@@ -27,7 +27,6 @@ class UserManager(BaseUserManager):
         extra_fields.setdefault('is_superuser', True)
         extra_fields.setdefault('is_active', True)
 
-        # ✅ Set a default value for user_type (e.g., 1 = admin)
         extra_fields.setdefault('user_type', 1)
 
         if extra_fields.get('is_staff') is not True:
