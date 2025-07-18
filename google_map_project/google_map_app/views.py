@@ -3,49 +3,63 @@ from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from .models import user_table
- 
-from django.http import HttpResponse
+from django.contrib.auth.hashers import check_password
+from .models import user_table 
+from django.contrib.auth.hashers import make_password
+
+
+
 @login_required(login_url="/login")
 def home(request):
     return render(request,"basic/home.html")
+
 def register(request):
     if request.method == "POST":
-        first_name = request.POST.get('first_name')
-        last_name = request.POST.get('last_name')
-        username = request.POST.get('username')
+        user_id = request.POST.get('user_id')
+        name = request.POST.get('name')
+        email_id = request.POST.get('email_id')
+        phone_number = request.POST.get('phone_number')
         password = request.POST.get('password')
-        user = user_table.objects.filter(username = username)
-        if user.exists():
-            messages.info(request,'Username already exists try again')
-            return redirect('/')
-        user = user_table.objects.create(
-            first_name = first_name,
-            last_name = last_name,
-            username = username,
-            password=password)
+        user_type = request.POST.get('user_type')  # Ensure this is passed as int
+        partner_id = request.POST.get('partner_id')
+
+        user = user_table.objects.create_user(
+                user_id=user_id,
+                name=name,
+                email_id=email_id,
+                phone_number=phone_number,
+                user_type=int(user_type),
+                partner_id=partner_id,
+                password=password  
+            )
+
+        
         messages.info(request,'Account created successfully.')
         return redirect('/login/')
     return render(request, 'basic/register.html')
 def login_req(request):
     if request.method == "POST":
-    
-        username = request.POST.get('username')
+        user_id = request.POST.get('user_id')
         password = request.POST.get('password')
-        if not user_table.objects.filter(username=username).exists():
-            messages.info(request, 'Invalid username.')
+
+        # Check if user exists
+        if not user_table.objects.filter(user_id=user_id).exists():
+            messages.error(request, "Invalid user ID.")
             return redirect('/login/')
-        user = authenticate(username=username, password=password)
-        if user is None:
-            messages.info(request,'Invalid password.')
-            return redirect('/login/')
-        else:
+
+        user = authenticate(request, username=user_id, password=password)
+
+        if user is not None:
             login(request, user)
             return redirect('/home/')
-        
+        else:
+            messages.error(request, "Invalid password.")
+            return redirect('/login/')
 
     return render(request, 'basic/login.html')
-def logout_page(request):
+        
+
+def logout_button(request):
     logout(request)
     return redirect('/login/')
   
