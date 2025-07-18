@@ -86,6 +86,7 @@ DATABASES = {
         'PORT': '3306',
     }
 }
+AUTH_USER_MODEL = 'google_map_app.user_table'
 
 
 # Password validation
