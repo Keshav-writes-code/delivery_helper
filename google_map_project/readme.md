@@ -3,6 +3,11 @@
     # pip install django
     # pip install pymysql
 
+## Some Generalized db info.
+- db_name = delivery_management_system
+- db_pass = root
+- port = 3306
+
 # Step => 1
 Go to delivery/helper
 Go to databases 
