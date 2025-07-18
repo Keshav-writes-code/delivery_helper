@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from .models import user_table
  
 from django.http import HttpResponse
 @login_required(login_url="/login")
@@ -14,11 +15,11 @@ def register(request):
         last_name = request.POST.get('last_name')
         username = request.POST.get('username')
         password = request.POST.get('password')
-        user = User.objects.filter(username = username)
+        user = user_table.objects.filter(username = username)
         if user.exists():
             messages.info(request,'Username already exists try again')
             return redirect('/')
-        user = User.objects.create_user(
+        user = user_table.objects.create(
             first_name = first_name,
             last_name = last_name,
             username = username,
@@ -31,7 +32,7 @@ def login_req(request):
     
         username = request.POST.get('username')
         password = request.POST.get('password')
-        if not User.objects.filter(username=username).exists():
+        if not user_table.objects.filter(username=username).exists():
             messages.info(request, 'Invalid username.')
             return redirect('/login/')
         user = authenticate(username=username, password=password)
