@@ -1,8 +1,8 @@
 """
-URL configuration for google_map_project project.
+URL configuration for google_maps project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.1/topics/http/urls/
+    https://docs.djangoproject.com/en/5.2/topics/http/urls/
 Examples:
 Function views
     1. Add an import:  from my_app import views
@@ -16,7 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from google_map_app.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('',register, name="register"),
+    path('login/',login_req, name="login_req"),
+    path('home/',home, name="home"),
+    path('logout/',logout_page, name="logout_page"),
 ]
