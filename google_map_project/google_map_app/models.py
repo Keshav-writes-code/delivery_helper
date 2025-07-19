@@ -78,11 +78,10 @@ class customer_order(models.Model):
     price = models.IntegerField(null=False,blank=False)
     date_of_delivery = models.DateField(null=False,blank=False)
     date_of_order = models.DateField(null=False,blank=False)
+    def __str__(self):
+        return f"{self.order_name} ({self.price}, {self.user_id},{self.delivery_person_id})"
 
 class order_assign(models.Model):
     order_book_id = models.ForeignKey(customer_order,on_delete=models.CASCADE)
     assign_person_id = models.IntegerField(null=False,blank=False)
 
-
-    def __str__(self):
-        return f"{self.order_name} ({self.price}, {self.user_id},{self.delivery_person_id})"
