@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
-
 class Student(models.Model):
     name = models.CharField(max_length=100)
     roll_number = models.IntegerField()
@@ -54,7 +53,7 @@ class user_table(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ['email_id']
 
     def __str__(self):
-        return self.name
+        return self.user_id
 
     class Meta:
         db_table = 'user_table'  # 👈 this overrides the default table name

@@ -22,7 +22,10 @@ def register(request):
         password = request.POST.get('password')
         user_type = request.POST.get('user_type')  # Ensure this is passed as int
         partner_id = request.POST.get('partner_id')
-
+        user = user_table.objects.filter(phone_number = phone_number)
+        if user.exists():
+            messages.info(request,'Phone number already linked to other account')
+            return redirect('/')
         user = user_table.objects.create_user(
                 user_id=user_id,
                 name=name,
