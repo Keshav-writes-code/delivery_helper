@@ -5,6 +5,12 @@ class student(models.Model):
     student_change = models.IntegerField(null=True)
     student_id = models.BooleanField(blank=True)
     // add some test cases
+
+
+
+
+
+# do some testing
 class UserManager(BaseUserManager):
     def create_user(self, user_id, email_id, password=None, **extra_fields):
         if not user_id:
