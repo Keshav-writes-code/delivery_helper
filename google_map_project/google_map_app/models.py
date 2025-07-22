@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 
 class student(models.Model):
     student_change = models.IntegerField(null=True)
-    student_id = models.IntegerField(blank=True)
+    student_id = models.CharField(blank=True)
 class UserManager(BaseUserManager):
     def create_user(self, user_id, email_id, password=None, **extra_fields):
         if not user_id:
