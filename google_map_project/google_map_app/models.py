@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
-# Create your models here.
 class Student(models.Model):
     name = models.CharField(max_length=100)
     roll_number = models.IntegerField()
@@ -27,7 +26,6 @@ class UserManager(BaseUserManager):
         extra_fields.setdefault('is_superuser', True)
         extra_fields.setdefault('is_active', True)
 
-        # ✅ Set a default value for user_type (e.g., 1 = admin)
         extra_fields.setdefault('user_type', 1)
 
         if extra_fields.get('is_staff') is not True:
@@ -55,7 +53,7 @@ class user_table(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ['email_id']
 
     def __str__(self):
-        return self.name
+        return self.user_id
 
     class Meta:
         db_table = 'user_table'  # 👈 this overrides the default table name
@@ -79,11 +77,10 @@ class customer_order(models.Model):
     price = models.IntegerField(null=False,blank=False)
     date_of_delivery = models.DateField(null=False,blank=False)
     date_of_order = models.DateField(null=False,blank=False)
+    def __str__(self):
+        return f"{self.order_name} ({self.price}, {self.user_id},{self.delivery_person_id})"
 
 class order_assign(models.Model):
     order_book_id = models.ForeignKey(customer_order,on_delete=models.CASCADE)
     assign_person_id = models.IntegerField(null=False,blank=False)
 
-
-    def __str__(self):
-        return f"{self.order_name} ({self.price}, {self.user_id},{self.delivery_person_id})"
