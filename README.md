@@ -1,6 +1,6 @@
 # Setup Database
 
-- Install Mysql on your OS (for linux(Debian) refer this guide :(Install Mysql on Antix Linux)[https://keshav.is-a.dev/FreqKnow/linux/mysql-setup-on-antix/] )
+- Install Mysql on your OS (for linux(Debian) refer this guide : [ Install Mysql on Antix Linux ](https://keshav.is-a.dev/FreqKnow/linux/mysql-setup-on-antix/) )
 - create a Database with the name `delivery_management_system`
 
 ```sql
