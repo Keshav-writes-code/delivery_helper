@@ -1,11 +1,22 @@
-## How to add new Svelte Component
+# How to add new Svelte Page
 
-While Developing this project, you might need to add Svelte components to use as an App in a Django template
-this guide will focus on how to add a parent Svelte Component to be Used as the root app of a Given Django Template
-if you just wanna make a child component to add to a svelte component, you dont need any extra work other than importing the child svelte component normally in the Parent Svelte Component
+**Focus** : if you need to add a Svelte component as full page in Django
 
-1. Create a `.svelte` file in `./delivery_helper_app/frontend/src/components/` directory
-2. create a `.ts` file with the same name as the component in `./delivery_helper_app/frontend/src/apps/` that will be an intermediary to bundle it with Vite. Copy this snippit and paste and change `<component_name>` to your svelte component name
+**Not Focus** : if you just wanna make a child component to add to a svelte component, this guide is not for that. although you can just import the child svelte component in the Parent Svelte Component as you would normally do
+
+## Steps
+
+### Step 1
+
+Create a `.svelte` file in `./delivery_helper_app/frontend/src/components/` directory. The file can be left empty for now
+
+### Step 2
+
+create a `.ts` file with the same name as the component in `./delivery_helper_app/frontend/src/apps/`
+
+paste this snippit into the `.ts` file
+
+`./delivery_helper_app/frontend/src/apps/<component_name>` :
 
 ```ts
 import { mount } from "svelte";
@@ -20,7 +31,11 @@ const app = mount(App, {
 export default app;
 ```
 
-3. add the entry for this component in the `vite.config.ts`. change the `<component_name>` and `<path_of_ts_file>` accordingly
+- Then, change `<component_name>` to your svelte component name
+
+### Step 3
+
+add the entry for this component in the `vite.config.ts`.
 
 ```ts
 import { defineConfig } from "vite";
@@ -37,8 +52,6 @@ export default defineConfig({
     manifest: "manifest.json",
     rollupOptions: {
       input: {
-        temp: "./src/apps/temp.ts",
-        ...,
         <compnent_name>: '<path_of_ts_file>',
       },
     },
@@ -46,11 +59,18 @@ export default defineConfig({
 });
 ```
 
-4. then add a .html file in the `./delivery_helper_app/templates/delivery_helper_app/` directory (this is our django template that django can render in view.py)
+- change to make:
+  - `<component_name>` to the Svelte component Name.
+  - `<path_of_ts_file>` path of the `.ts` file relative to `./frontend`
+    - example path : `./src/apps/temp.ts`.
 
-- add `{% vite_hmr_client %}` in the `<head>` tag
-- add `{% vite_asset '<path_of_ts_file>' %}` also in the head tag
-  - example path `{% vite_asset 'src/apps/temp.ts' %}`
+### Step 4
+
+create a `.html` file in the `./delivery_helper_app/templates/delivery_helper_app/`directory (this is our django template that django can render in`view.py`). the name could be the Webpage name Example : `temp.html`
+
+now, Paste this Snippit
+
+`templates/delivery_helper_app/temp.html` :
 
 ```html
 {% load django_vite %}
@@ -69,3 +89,41 @@ export default defineConfig({
   </body>
 </html>
 ```
+
+- in `{% vite_asset '<path_of_ts_file>' %}`, change the `path_of_ts_file` to the path of the `.ts` file we create earlier
+  - example path `'src/apps/temp.ts'`
+
+### Step 5
+
+Open the `views.py` and add a function to render this html in the browser
+
+`./delivery_helper_app/views.py` :-
+
+```python
+from django.shortcuts import render
+
+def <name_of_the_page>(request):
+    return render(request, "<location of the html file>")
+    # Exapmle :
+    # return render(request, "delivery_helper_app/temp.html")
+```
+
+- change the `<location of the html file>` to the the path of the html file relative to the `templates` folder. Example : `delivery_helper_app/temp.html`
+- change the `<name_of_the_page>` to whatever you wanna name the page. Example `"temp"`
+
+### Step 6
+
+create a `urls.py` in the django app
+
+`./delivery_helper_app/urls.py` :
+
+```python
+from django.urls import path
+from . import views
+
+urlpatterns = [path("<url_of_page>/", views.<name_of_the_page>, name="<name_of_the_page>")]
+
+```
+
+- change `<url_of_page>` to the url the page we want.
+- change `<name_of_the_page>` to the Page Name
