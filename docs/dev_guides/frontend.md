@@ -45,3 +45,27 @@ export default defineConfig({
   },
 });
 ```
+
+4. then add a .html file in the `./delivery_helper_app/templates/delivery_helper_app/` directory (this is our django template that django can render in view.py)
+
+- add `{% vite_hmr_client %}` in the `<head>` tag
+- add `{% vite_asset '<path_of_ts_file>' %}` also in the head tag
+  - example path `{% vite_asset 'src/apps/temp.ts' %}`
+
+```html
+{% load django_vite %}
+<!doctype html>
+<html lang="en">
+  <head>
+    {% vite_hmr_client %}
+    {% vite_asset '<path_of_ts_file>' %}
+    <!-- Example {% vite_asset 'src/apps/temp.ts' %} -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title></title>
+  </head>
+  <body>
+    <div id="app"></div>
+  </body>
+</html>
+```
