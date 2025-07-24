@@ -1,0 +1,11 @@
+{
+  "src/apps/temp.ts": {
+    "file": "assets/temp-DUH8OeR7.js",
+    "name": "temp",
+    "src": "src/apps/temp.ts",
+    "isEntry": true,
+    "css": [
+      "assets/temp-Duk7Tztg.css"
+    ]
+  }
+}
