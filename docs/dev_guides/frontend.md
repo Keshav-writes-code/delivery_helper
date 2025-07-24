@@ -16,7 +16,7 @@ create a `.ts` file with the same name as the component in `./delivery_helper_ap
 
 paste this snippit into the `.ts` file
 
-`./delivery_helper_app/frontend/src/apps/<component_name>` :
+`./delivery_helper_app/frontend/src/apps/<component_name>` &darr;
 
 ```ts
 import { mount } from "svelte";
@@ -36,6 +36,8 @@ export default app;
 ### Step 3
 
 add the entry for this component in the `vite.config.ts`.
+
+`./frontend/vite.config.ts` &darr;
 
 ```ts
 import { defineConfig } from "vite";
@@ -59,9 +61,9 @@ export default defineConfig({
 });
 ```
 
-- change to make:
-  - `<component_name>` to the Svelte component Name.
-  - `<path_of_ts_file>` path of the `.ts` file relative to `./frontend`
+- then do these changes :
+  - `<component_name>` change to &rarr; the Svelte component Name.
+  - `<path_of_ts_file>` change to &rarr; path of the `.ts` file relative to `./frontend`
     - example path : `./src/apps/temp.ts`.
 
 ### Step 4
@@ -70,7 +72,7 @@ create a `.html` file in the `./delivery_helper_app/templates/delivery_helper_ap
 
 now, Paste this Snippit
 
-`templates/delivery_helper_app/temp.html` :
+`templates/delivery_helper_app/temp.html` &darr;
 
 ```html
 {% load django_vite %}
@@ -97,7 +99,7 @@ now, Paste this Snippit
 
 Open the `views.py` and add a function to render this html in the browser
 
-`./delivery_helper_app/views.py` :-
+`./delivery_helper_app/views.py` &darr;
 
 ```python
 from django.shortcuts import render
@@ -115,7 +117,7 @@ def <name_of_the_page>(request):
 
 create a `urls.py` in the django app
 
-`./delivery_helper_app/urls.py` :
+`./delivery_helper_app/urls.py` &darr;
 
 ```python
 from django.urls import path
