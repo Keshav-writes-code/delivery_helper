@@ -31,7 +31,7 @@ const app = mount(App, {
 export default app;
 ```
 
-- Then, change `<component_name>` to your svelte component name
+- Then, change `<component_name>` to the svelte component's name, that you just created
 
 ### Step 3
 
