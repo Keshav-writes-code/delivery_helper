@@ -1,20 +1,54 @@
-# Setup Database
+## Setup to Run this on Your Machine
 
-- Install Mysql on your OS (for linux(Debian) refer this guide :(Install Mysql on Antix Linux)[https://keshav.is-a.dev/FreqKnow/linux/mysql-setup-on-antix/] )
-- create a Database with the name `delivery_management_system`
+This guide will walk you through how to setup this project on your Machine to run the dev server successfully
 
-```sql
-create database delivery_management_system
-```
+## Install Prerequisites
 
-- Sync Database Schema (Tables, etc) Specified in the Django Project to the Mysqldb installed on OS
+1. Install these Language Tools according to your OS
+
+- [ Python ](https://www.python.org/)
+- [ Nodejs ](https://nodejs.org/en)
+- [ Bun ](https://nodejs.org/en)
+- [ UV](https://docs.astral.sh/uv/getting-started/installation/)
+
+2. Install Mysql on your OS (for linux(Debian) refer this guide : [Install Mysql on Antix Linux](https://keshav.is-a.dev/FreqKnow/linux/mysql-setup-on-antix/))
+3. Clone this Project
+
+   ```sh
+   git clone https://github.com/Keshav-writes-code/delivery_helper.git
+   cd delivery_helper
+   ```
+
+4. Install Python and Node dependencies
+
+   ```sh
+   uv sync &&
+   cd ./delivery_helper_app/frontend &&
+   bun i &&
+   cd -
+   ```
+
+## Setup Database
+
+Your Database is required to have a user named : `root` with password `root`
+
+1. create a Database with the name `delivery_management_system` on your OS Mysql Application
+
+   ```sql
+   create database delivery_management_system
+   ```
+
+2. Sync Database Schema (Tables, etc)
+
+   ```sh
+   uv run manage.py makemigrations
+   uv run manage.py migrate
+   ```
+
+## Run Dev Server
+
+in the project root run this
 
 ```sh
-uv run manage.py migrate
-```
-
-or
-
-```sh
-python manage.py migrate
+uv run manage.py runserver
 ```
