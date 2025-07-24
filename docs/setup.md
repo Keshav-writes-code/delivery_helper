@@ -47,8 +47,16 @@ Your Database is required to have a user named : `root` with password `root`
 
 ## Run Dev Server
 
-in the project root run this
+1. in the project root, run this for the Django Server
 
 ```sh
 uv run manage.py runserver
+```
+
+2. And also run this for the Frontend Dev Server from Vite
+
+```sh
+cd ./delivery_helper_app/frontend &&
+bun dev
+
 ```
