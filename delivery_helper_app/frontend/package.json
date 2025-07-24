@@ -15,6 +15,17 @@
     "svelte": "^5.35.5",
     "svelte-check": "^4.2.2",
     "typescript": "~5.8.3",
+    "unocss": "^66.3.3",
     "vite": "^7.0.4"
+  },
+  "dependencies": {
+    "@ameinhardt/unocss-preset-daisy": "^1.1.8",
+    "@iconify-json/tabler": "^1.2.20",
+    "@unocss/preset-icons": "^66.3.3",
+    "@unocss/preset-mini": "^66.3.3",
+    "@unocss/preset-web-fonts": "^66.3.3",
+    "@unocss/reset": "^66.3.3",
+    "@unocss/transformer-variant-group": "^66.3.3",
+    "daisyui": "^5.0.46"
   }
 }
