@@ -53,7 +53,7 @@ Your Database is required to have a user named : `root` with password `root`
 uv run manage.py runserver
 ```
 
-2. And also run this for the Frontend Dev Server from Vite
+2. And also run this in a seperate terminal for the Frontend Dev Server from Vite
 
 ```sh
 cd ./delivery_helper_app/frontend &&
