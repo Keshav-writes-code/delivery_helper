@@ -11,9 +11,7 @@ export default defineConfig({
     emptyOutDir: true,
     manifest: "manifest.json",
     rollupOptions: {
-      input: {
-        temp: "./src/apps/temp.ts",
-      },
+      input: {},
     },
   },
 });
