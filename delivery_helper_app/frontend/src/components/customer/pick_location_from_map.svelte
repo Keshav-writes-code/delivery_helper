@@ -14,7 +14,7 @@
     apiKey = "GOOGLE_API_KEY", // Will use the global API key from Vite config
     height = "500px",
     width = "100%",
-    coordinates = $bindable<{ lat: number; lng: number } | null>(null),
+    coordinates = $bindable(),
   }: MapProps = $props();
 
   // Flag to prevent infinite loop
@@ -24,12 +24,10 @@
   let mapState = $state<{
     mapInstance: google.maps.Map | null;
     currentMarker: google.maps.Marker | null;
-    infoWindowInstance: google.maps.InfoWindow | null;
     loaderInstance: Loader | null;
   }>({
     mapInstance: null,
     currentMarker: null,
-    infoWindowInstance: null,
     loaderInstance: null,
   });
   // Dark theme styles for Google Maps
@@ -170,9 +168,6 @@
         styles: darkMapStyles,
       });
 
-      // Create info window
-      mapState.infoWindowInstance = new google.maps.InfoWindow();
-
       // Set up map click listener for dropping pins
       mapState.mapInstance.addListener(
         "click",
@@ -247,21 +242,6 @@
       isUpdatingFromMap = false;
     }, 0);
 
-    // Create content for info window
-    const contentString = `
-      <div style="padding: 10px; max-width: 200px;">
-        <h3 style="margin-bottom: 8px;">Selected Location</h3>
-        <p><strong>Latitude:</strong> ${latLng.lat().toFixed(6)}</p>
-        <p><strong>Longitude:</strong> ${latLng.lng().toFixed(6)}</p>
-      </div>
-    `;
-
-    // Show info window
-    if (mapState.infoWindowInstance) {
-      mapState.infoWindowInstance.setContent(contentString);
-      mapState.infoWindowInstance.open(mapState.mapInstance, marker);
-    }
-
     // Update coordinates when marker is dragged
     marker.addListener("dragend", () => {
       const newPosition = marker.getPosition();
@@ -279,19 +259,6 @@
         setTimeout(() => {
           isUpdatingFromMap = false;
         }, 0);
-
-        // Update info window
-        if (mapState.infoWindowInstance) {
-          const updatedContent = `
-            <div style="padding: 10px; max-width: 200px;">
-              <h3 style="margin-bottom: 8px;">Selected Location</h3>
-              <p><strong>Latitude:</strong> ${newPosition.lat().toFixed(6)}</p>
-              <p><strong>Longitude:</strong> ${newPosition.lng().toFixed(6)}</p>
-            </div>
-          `;
-          mapState.infoWindowInstance.setContent(updatedContent);
-          mapState.infoWindowInstance.open(mapState.mapInstance, marker);
-        }
       }
     });
   }
@@ -306,22 +273,6 @@
     // Only update the marker's position if it already exists
     if (mapState.currentMarker) {
       mapState.currentMarker.setPosition(location);
-
-      // Update info window if open
-      if (mapState.infoWindowInstance) {
-        const contentString = `
-          <div style="padding: 10px; max-width: 200px;">
-            <h3 style="margin-bottom: 8px;">Selected Location</h3>
-            <p><strong>Latitude:</strong> ${coordinates.lat.toFixed(6)}</p>
-            <p><strong>Longitude:</strong> ${coordinates.lng.toFixed(6)}</p>
-          </div>
-        `;
-        mapState.infoWindowInstance.setContent(contentString);
-        mapState.infoWindowInstance.open(
-          mapState.mapInstance,
-          mapState.currentMarker,
-        );
-      }
     } else {
       // Create a new marker if none exists
       setMarker(location);
@@ -348,14 +299,9 @@
     setTimeout(() => {
       isUpdatingFromMap = false;
     }, 0);
-
-    // Close any open info window
-    if (mapState.infoWindowInstance) {
-      mapState.infoWindowInstance.close();
-    }
   }
 </script>
 
-<div class=" w-full rounded-box overflow-hidden relative">
+<div class="w-full rounded-box overflow-hidden relative">
   <div id="map-container" style="height: {height}; width: {width};"></div>
 </div>
