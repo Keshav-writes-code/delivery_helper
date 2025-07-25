@@ -62,6 +62,7 @@ def add_or_modify_location(request):
 
         created = []
         updated = []
+        not_able_to_update = []
 
         for new_loc in data:
             print("Processing:", new_loc)
@@ -74,12 +75,18 @@ def add_or_modify_location(request):
                 location_name=new_loc["location_name"]
             ).first()
 
-            if existing:
+            orders_with_location= customer_order.objects.filter(customer_id=owner,
+                                                         order_location=new_loc["location_name"]
+                                                         ).values().first()
+            
+            is_delivered = orders_with_location.get('is_delivered')
+            if existing and is_delivered:
                 existing.longitude = new_loc["longitude"]
                 existing.latitude = new_loc["latitude"]
                 existing.save()
                 updated.append(existing.location_name)
-            else:
+
+            elif not existing:
                 location.objects.create(
                     owner_id=owner,
                     location_name=new_loc["location_name"],
@@ -87,11 +94,14 @@ def add_or_modify_location(request):
                     latitude=new_loc["latitude"]
                 )
                 created.append(new_loc["location_name"])
+            else:
+                not_able_to_update.append(new_loc["location_name"])
 
         return JsonResponse({
             "message": "Processed successfully.",
             "created": created,
-            "updated": updated
+            "updated": updated,
+            "can't_update":not_able_to_update,
         }, status=200)
 
     except json.JSONDecodeError:

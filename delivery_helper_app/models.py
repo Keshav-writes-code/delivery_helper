@@ -44,7 +44,7 @@ class customer_order(models.Model):
     )
 
     def __str__(self):
-        return f"{self.order_name} ({self.price}, {self.customer_id},{self.assigned_delivery_agent_id})"
+        return f"{self.order_name} ({self.price}, {self.customer_id},{self.assigned_delivery_agent_id},{self.is_delivered})"
 
 
 class UserManager(BaseUserManager):
