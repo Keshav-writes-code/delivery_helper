@@ -1,4 +1,4 @@
 from django.urls import path
 from . import views
 
-urlpatterns = []
+urlpatterns = [path("customer/", views.customer, name="Customer Page")]
