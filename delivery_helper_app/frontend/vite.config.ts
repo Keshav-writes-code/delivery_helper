@@ -11,7 +11,9 @@ export default defineConfig({
     emptyOutDir: true,
     manifest: "manifest.json",
     rollupOptions: {
-      input: {},
+      input: {
+        customer: "./src/apps/customer.ts",
+      },
     },
   },
 });
