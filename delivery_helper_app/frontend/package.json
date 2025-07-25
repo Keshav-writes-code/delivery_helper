@@ -12,6 +12,7 @@
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^6.0.0",
     "@tsconfig/svelte": "^5.0.4",
+    "@types/google.maps": "^3.58.1",
     "svelte": "^5.35.5",
     "svelte-check": "^4.2.2",
     "typescript": "~5.8.3",
@@ -20,6 +21,7 @@
   },
   "dependencies": {
     "@ameinhardt/unocss-preset-daisy": "^1.1.8",
+    "@googlemaps/js-api-loader": "^1.16.10",
     "@iconify-json/tabler": "^1.2.20",
     "@unocss/preset-icons": "^66.3.3",
     "@unocss/preset-mini": "^66.3.3",
