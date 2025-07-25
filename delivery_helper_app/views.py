@@ -1,9 +1,5 @@
 from django.http import HttpResponse,JsonResponse
-<<<<<<< HEAD
 from .models import customer_order,location,Profile
-=======
-from .models import customer_order,location
->>>>>>> c14e27af5cdc795e1c2e4be509b2179e1258ce34
 from django.views.decorators.csrf import csrf_exempt
 import json
 
