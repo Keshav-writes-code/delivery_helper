@@ -25,7 +25,7 @@ import "virtual:uno.css";
 import "@unocss/reset/tailwind-compat.css";
 
 const app = mount(App, {
-  target: document.getElementById("app")!,
+  target: document.body,
 });
 
 export default app;
@@ -87,7 +87,6 @@ now, Paste this Snippit
     <title></title>
   </head>
   <body>
-    <div id="app"></div>
   </body>
 </html>
 ```
