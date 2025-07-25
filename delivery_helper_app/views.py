@@ -76,12 +76,11 @@ def add_or_modify_location(request):
                 location_name=new_loc["location_name"]
             ).first()
 
-            orders_with_location= customer_order.objects.filter(customer_id=owner,
-                                                         order_location=new_loc["location_name"]
+            orders_not_delivered= customer_order.objects.filter(customer_id=owner,
+                                                         order_location=new_loc["location_name"],is_delivered=False
                                                          ).values().first()
-            
-            is_delivered = orders_with_location.get('is_delivered')
-            if existing and is_delivered:
+            print(orders_not_delivered)
+            if existing and not orders_not_delivered:
                 existing.longitude = new_loc["longitude"]
                 existing.latitude = new_loc["latitude"]
                 existing.save()
@@ -102,7 +101,7 @@ def add_or_modify_location(request):
             "message": "Processed successfully.",
             "created": created,
             "updated": updated,
-            "can't_update":not_able_to_update,
+            "can't_update":f"order corresponding to {not_able_to_update} is pending",
         }, status=200)
 
     except json.JSONDecodeError:
