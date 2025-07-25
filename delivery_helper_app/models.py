@@ -34,6 +34,7 @@ class customer_order(models.Model):
         Profile, on_delete=models.CASCADE, related_name="customer_orders"
     )
     order_name = models.TextField(null=False, blank=False)
+    order_location = models.ForeignKey(on_delete=models.CASCADE)
     is_delivered = models.BooleanField(default=False)
     price = models.IntegerField(null=False, blank=False)
     date_of_delivery = models.DateField(null=False, blank=False)
