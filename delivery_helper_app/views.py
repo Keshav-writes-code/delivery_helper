@@ -16,15 +16,15 @@ def get_customer_locations(request):
         return HttpResponse("currently you have not added any location")
     return JsonResponse(list(customer_locations),safe=False)
 
-
 @csrf_exempt
 def delete_customer_locations(request):
     if request.method == "POST":
         try:
             data = json.loads(request.body.decode("utf-8"))
             owner_id = 1
-            locations = data.get("locations", [])
-
+            if not isinstance(data, list):
+                return JsonResponse({"error": "Expected a list of locations"}, status=400)
+            locations=data
             if not owner_id or not locations:
                 return JsonResponse({"error": "Missing owner_id or locations"}, status=400)
 
@@ -41,6 +41,7 @@ def delete_customer_locations(request):
             return JsonResponse({"error": str(e)}, status=500)
 
     return JsonResponse({"error": "Only POST method is allowed"},status=405)
+
 
 @csrf_exempt
 def add_or_modify_location(request):
