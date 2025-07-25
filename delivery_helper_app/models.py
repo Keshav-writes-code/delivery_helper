@@ -16,7 +16,7 @@ class Profile(models.Model):
 
 class location(models.Model):
     owner_id = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    location_name = models.CharField(primary_key=True)
+    location_name = models.CharField(primary_key=True,max_length=50)
     longitude = models.DecimalField(
         max_digits=9, decimal_places=6, null=False, blank=False
     )
@@ -31,7 +31,7 @@ class location(models.Model):
 class customer_order(models.Model):
     order_id = models.IntegerField(primary_key=True)
     customer_id = models.ForeignKey(
-        Profile, on_delete=models.CASCADE, related_name="customer_orders"
+        Profile, on_delete=models.CASCADE
     )
     order_name = models.TextField(null=False, blank=False)
     order_location = models.ForeignKey(location,on_delete=models.CASCADE)
@@ -44,7 +44,7 @@ class customer_order(models.Model):
     )
 
     def __str__(self):
-        return f"{self.order_name} ({self.price}, {self.user_id},{self.delivery_person_id})"
+        return f"{self.order_name} ({self.price}, {self.customer_id},{self.assigned_delivery_agent_id})"
 
 
 class UserManager(BaseUserManager):
