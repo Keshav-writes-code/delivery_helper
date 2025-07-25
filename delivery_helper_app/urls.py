@@ -7,5 +7,6 @@ urlpatterns = [
         views.get_delivery_location,
     ),
     path("show_orders/", views.show_orders),
+    path("api/customer_order_location",views.get_customer_locations)
 
 ]
