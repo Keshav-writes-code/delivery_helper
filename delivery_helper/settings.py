@@ -77,9 +77,9 @@ WSGI_APPLICATION = "delivery_helper.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": "delivery_management_system",
+        "NAME": "finaldb",
         "USER": "root",
-        "PASSWORD": "root",
+        "PASSWORD": "Sainisaab45#",
         "HOST": "localhost",
         "PORT": "3306",
     }
