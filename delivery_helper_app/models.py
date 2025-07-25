@@ -16,7 +16,7 @@ class Profile(models.Model):
 
 class location(models.Model):
     owner_id = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    location_name = models.CharField(max_length=100, null=False, blank=False)
+    location_name = models.CharField(primary_key=True)
     longitude = models.DecimalField(
         max_digits=9, decimal_places=6, null=False, blank=False
     )
@@ -34,6 +34,7 @@ class customer_order(models.Model):
         Profile, on_delete=models.CASCADE, related_name="customer_orders"
     )
     order_name = models.TextField(null=False, blank=False)
+    order_location = models.ForeignKey(location,on_delete=models.CASCADE)
     is_delivered = models.BooleanField(default=False)
     price = models.IntegerField(null=False, blank=False)
     date_of_delivery = models.DateField(null=False, blank=False)
