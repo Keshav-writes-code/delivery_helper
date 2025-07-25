@@ -121,5 +121,3 @@ def show_orders(request):
 
     else:
         return JsonResponse(order_list,safe=False)
-
-        
