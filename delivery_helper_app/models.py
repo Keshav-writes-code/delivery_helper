@@ -15,7 +15,6 @@ class Profile(models.Model):
 
 
 class location(models.Model):
-    id = models.IntegerField(primary_key=True)
     owner = models.ForeignKey(Profile, on_delete=models.CASCADE)
     location_name = models.CharField(unique=True, max_length=50)
     longitude = models.DecimalField(

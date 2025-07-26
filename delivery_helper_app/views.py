@@ -137,11 +137,30 @@ def add_or_modify_location(request):
 
 
 def get_delivery_agent_orders(request):
-    id = 4
-    orders = customer_order.objects.filter(assigned_delivery_agent_id=id).values()
+    id = 2  
+
+    orders = customer_order.objects.filter(
+        assigned_delivery_agent_id=id
+    ).values(
+        'order_id',
+        'order_name',
+        'price',
+        'is_delivered',
+        'date_of_order',
+        'date_of_delivery',
+        'customer_id',
+        'assigned_delivery_agent_id',
+        'order_location__id',
+        'order_location__location_name',
+        'order_location__latitude',
+        'order_location__longitude',
+        'order_location__owner_id',
+    )
+
     order_list = list(orders)
+
     if not order_list:
         return HttpResponse("no orders")
 
-    else:
-        return JsonResponse(order_list, safe=False)
+    return JsonResponse(order_list, safe=False)
+
