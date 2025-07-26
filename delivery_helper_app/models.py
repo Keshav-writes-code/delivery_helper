@@ -15,8 +15,8 @@ class Profile(models.Model):
 
 
 class location(models.Model):
-    owner_id = models.ForeignKey(Profile, on_delete=models.CASCADE)
     id = models.IntegerField(primary_key=True)
+    owner = models.ForeignKey(Profile, on_delete=models.CASCADE)
     location_name = models.CharField(unique=True, max_length=50)
     longitude = models.DecimalField(
         max_digits=9, decimal_places=6, null=False, blank=False
@@ -31,16 +31,14 @@ class location(models.Model):
 
 class customer_order(models.Model):
     order_id = models.IntegerField(primary_key=True)
-    customer_id = models.ForeignKey(
-        Profile, on_delete=models.CASCADE
-    )
+    customer = models.ForeignKey(Profile, on_delete=models.CASCADE)
     order_name = models.TextField(null=False, blank=False)
-    order_location = models.ForeignKey(location,on_delete=models.CASCADE)
+    order_location = models.ForeignKey(location, on_delete=models.CASCADE)
     is_delivered = models.BooleanField(default=False)
     price = models.IntegerField(null=False, blank=False)
     date_of_delivery = models.DateField(null=False, blank=False)
     date_of_order = models.DateField(null=False, blank=False)
-    assigned_delivery_agent_id = models.ForeignKey(
+    assigned_delivery_agent = models.ForeignKey(
         Profile, on_delete=models.CASCADE, related_name="delivery_orders"
     )
 
