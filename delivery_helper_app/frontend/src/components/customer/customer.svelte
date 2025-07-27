@@ -108,7 +108,7 @@
     <ul class="list bg-base-100 rounded-box shadow-md">
       {#each placeHolderLocation as location}
         <li class="list-row">
-          <div class="bg-base-300 aspect-ratio-square grid place-items-center">
+          <div class=" aspect-ratio-square grid place-items-center">
             {#if location.location_type == "home"}
               <div class="i-tabler:home-filled color-#e3ffba size-7"></div>
             {:else if location.location_type == "office"}
