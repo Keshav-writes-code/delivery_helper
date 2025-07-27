@@ -4,16 +4,12 @@
   // Define interfaces for our component
   interface MapProps {
     apiKey: string;
-    height?: string;
-    width?: string;
     coordinates: { lat: number; lng: number } | null;
   }
 
   // Define props with the $props rune
   let {
     apiKey = "GOOGLE_API_KEY", // Will use the global API key from Vite config
-    height = "500px",
-    width = "100%",
     coordinates = $bindable(),
   }: MapProps = $props();
 
@@ -302,6 +298,4 @@
   }
 </script>
 
-<div class="w-full rounded-box overflow-hidden relative">
-  <div id="map-container" style="height: {height}; width: {width};"></div>
-</div>
+<div id="map-container" class="w-full h-90"></div>
