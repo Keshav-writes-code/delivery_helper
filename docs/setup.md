@@ -25,7 +25,8 @@ This guide will walk you through how to setup this project on your Machine to ru
    uv sync &&
    cd ./delivery_helper_app/frontend &&
    bun i &&
-   cd -
+   cd - &&
+   uv run manage.py tailwind install
    ```
 
 ## Setup Database
