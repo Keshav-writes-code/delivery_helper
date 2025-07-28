@@ -28,6 +28,10 @@ This guide will walk you through how to setup this project on your Machine to ru
    cd -
    ```
 
+## Setup Environment Variables
+
+1. Create a `.env` file with `VITE_GOOGLE_API_KEY` key and value is the Google API Key used for GMaps Integration. This api key can be generated from Goggle Cloud Console with Payment enablled
+
 ## Setup Database
 
 Your Database is required to have a user named : `root` with password `root`
