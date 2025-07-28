@@ -11,11 +11,20 @@
             <span class="label-text">Email</span>
           </label>
           <input 
-                  name="email" 
-                  type="email"
-                  class="input input-bordered w-full focus:input-primary" 
-                  placeholder="Enter your email"
-                  />
+            name="email" 
+            type="email"
+            class="input validator input-bordered w-full focus:input-primary" 
+            placeholder="Enter your email"
+          /> 
+
+          {% if form.email.errors %}
+            {% for error in form.email.errors %}
+              <div class="badge badge-soft badge-error">
+                {{ error }}
+              </div>
+            {% endfor %}
+          {% endif %}
+
         </div>
 
         <div class="form-control">
@@ -23,17 +32,25 @@
             <span class="label-text">Password</span>
           </label>
           <input 
-                  name="password" 
-                  type="password"
-                  class="input input-bordered w-full focus:input-primary" 
-                  placeholder="Enter your password"
-                  />
+            name="password1" 
+            type="password"
+            class="input validator input-bordered w-full focus:input-primary" 
+            placeholder="Enter your password"
+          />
+          {% if form.password1.errors %}
+          {% for error in form.password1.errors %}
+          <div class="badge badge-soft badge-error">
+            {{ error }}
+          </div>
+          {% endfor %}
+          {% endif %}
+
         </div>
         <div class="form-control">
           <label class="label leading-loose " for="password">
             <span class="label-text">Register as:</span>
           </label>
-          <select class='select w-full capitalize ' >
+          <select class='select validator w-full capitalize ' name='user_type' >
             {% for user_type in user_types %}
 
             <option value={{user_type.id}}  >
@@ -42,8 +59,16 @@
 
             {% endfor %}
           </select>
-        </div>
+          {% if form.user_type.errors %}
+          {% for error in form.user_type.errors %}
+          <div class="badge badge-soft badge-error">
+            {{ error }}
+          </div>
+          {% endfor %}
+          {% endif %}
 
+
+        </div>
 
         <button class="btn btn-primary btn-block">Register</button>
 
