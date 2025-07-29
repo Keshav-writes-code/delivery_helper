@@ -67,6 +67,25 @@
 
         </div>
 
+        <div class="form-control" id="partner_id_container" >
+          <label class="label leading-loose " for="password">
+            <span class="label-text">Partner Id</span>
+          </label>
+          <input 
+                  name="partner_id" 
+                  type="text"
+                  class="input validator input-bordered w-full focus:input-primary" 
+                  placeholder="Enter your Partner ID given by the Company"
+                  />
+          {% if form.partner_id.errors %}
+          {% for error in form.partner_id.errors %}
+          <div class="badge badge-soft badge-error">
+            {{ error }}
+          </div>
+          {% endfor %}
+          {% endif %}
+
+        </div>
         <button class="btn btn-primary btn-block">Register</button>
 
       <!--   <div class="divider">Log in with social</div> -->
@@ -99,4 +118,42 @@
   </div>
 </div>
 
+<script>
+  let delivery_id_input_elem = document.getElementById('partner_id_container');
+  let radioButtons = document.querySelectorAll('input[name="user_type"]');
+  
+  // Hide partner ID field initially
+  delivery_id_input_elem.style.display = 'none';
+  
+  // Get user_types data from Django template
+  const userTypes = [
+    {% for user_type in user_types %}
+    {
+      id: {{ user_type.id }},
+      partner_id_required: {{ user_type.partner_id_required|yesno:"true,false" }}
+    }{% if not forloop.last %},{% endif %}
+    {% endfor %}
+  ];
+  
+  // Add event listener to all radio buttons
+  radioButtons.forEach((radio, index) => {
+    radio.addEventListener('change', function() {
+      if (this.checked) {
+        const selectedValue = this.value;
+        
+        // Find the user type that matches the selected radio button value
+        const selectedUserType = userTypes.find(userType => userType.id == selectedValue);
+        
+        if (selectedUserType && selectedUserType.partner_id_required) {
+          // Show partner ID field if partner_id_required is true
+          delivery_id_input_elem.style.display = 'block';
+        } else {
+          // Hide partner ID field if partner_id_required is false or not found
+          delivery_id_input_elem.style.display = 'none';
+        }
+      }
+    });
+  });
+</script>
 {% endblock %}
+
