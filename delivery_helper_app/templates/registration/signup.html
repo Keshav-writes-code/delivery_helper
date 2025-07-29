@@ -50,15 +50,12 @@
           <label class="label leading-loose " for="password">
             <span class="label-text">Register as:</span>
           </label>
-          <select class='select validator w-full capitalize ' name='user_type' >
+          <div class="filter">
+            <input class="btn filter-reset btn-soft" type="radio" name="user_type" aria-label="All" required/>
             {% for user_type in user_types %}
-
-            <option value={{user_type.id}}  >
-              {{user_type.type_name}}
-            </option>
-
+            <input class="btn capitalize btn-soft " type="radio" name="user_type" aria-label="{{user_type.type_name}}" value={{user_type.id}} />
             {% endfor %}
-          </select>
+          </div>
           {% if form.user_type.errors %}
           {% for error in form.user_type.errors %}
           <div class="badge badge-soft badge-error">
