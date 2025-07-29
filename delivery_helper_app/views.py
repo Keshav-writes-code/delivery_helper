@@ -11,9 +11,9 @@ def sign_up(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            redirect(user.profile.user_type_id.type_name + "_page")
     else:
         form = RegisterForm()
     print(form.errors)
     context = {"user_types": user_types.objects.all(), "form": form}
+            redirect(user.profile.user_type_id.type_name)
     return render(request, "registration/signup.html", context)
