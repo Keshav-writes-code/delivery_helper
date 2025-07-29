@@ -15,6 +15,7 @@
                   type="email"
                   class="input validator input-bordered w-full focus:input-primary" 
                   placeholder="Enter your email"
+                  required
                   /> 
 
           {% if form.email.errors %}
@@ -36,6 +37,7 @@
                   type="password"
                   class="input validator input-bordered w-full focus:input-primary" 
                   placeholder="Enter your password"
+                  required
                   />
           {% if form.password1.errors %}
           {% for error in form.password1.errors %}
