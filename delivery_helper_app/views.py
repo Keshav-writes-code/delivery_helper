@@ -18,3 +18,6 @@ def sign_up(request):
     print(form.errors)
     context = {"user_types": user_types.objects.all(), "form": form}
     return render(request, "registration/signup.html", context)
+
+
+# TODO: add redirect logic for Login
