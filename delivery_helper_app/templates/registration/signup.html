@@ -53,7 +53,7 @@
             <span class="label-text">Register as:</span>
           </label>
           <div class="filter">
-            <input class="btn filter-reset btn-soft" type="radio" name="user_type" aria-label="All" required/>
+            <input class="btn filter-reset btn-soft" type="radio" name="user_type" aria-label="All" value="all"/>
             {% for user_type in user_types %}
             <input class="btn capitalize btn-soft " type="radio" name="user_type" aria-label="{{user_type.type_name}}" value={{user_type.id}} />
             {% endfor %}
