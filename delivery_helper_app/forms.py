@@ -17,7 +17,7 @@ class RegisterForm(UserCreationForm):
 
     def clean_email(self):
         email = self.cleaned_data["email"]
-        if User.objects.filter(email=email).exists():  # YOUR custom check
+        if User.objects.filter(email=email).exists():  # Check if the email is already registered in the database
             raise forms.ValidationError("Email already registered")
 
         return email
