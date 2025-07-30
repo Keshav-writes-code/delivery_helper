@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
-from .models import user_types, Profile
+from django.contrib.auth.views import LoginView
+from .models import user_types, User
 from django.contrib.auth import login
 from .forms import RegisterForm
 
@@ -20,4 +21,19 @@ def sign_up(request):
     return render(request, "registration/signup.html", context)
 
 
-# TODO: add redirect logic for Login
+class CustomLoginView(LoginView):
+    template_name = "registration/login.html"
+
+    def get_success_url(self):
+        user = self.request.user
+
+        next_url = self.request.GET.get("next")
+        if next_url:
+            return next_url
+
+        try:
+            user_id = user.id
+            user = User.objects.get(id=user_id)
+            return f"/{user.profile.user_type_id.type_name}/"
+        except:
+            return "/dashboard/"
