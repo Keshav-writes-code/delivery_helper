@@ -24,14 +24,12 @@ class CustomLoginView(LoginView):
     template_name = "registration/login.html"
 
     def get_success_url(self):
-        user = self.request.user
-
         next_url = self.request.GET.get("next")
         if next_url:
             return next_url
 
         try:
-            user = User.objects.get(id=user.id)
+            user = User.objects.get(id=self.request.user.id)
             return f"/{user.profile.user_type_id.type_name}/"
         except User.DoesNotExist:
             return "/dashboard/"
