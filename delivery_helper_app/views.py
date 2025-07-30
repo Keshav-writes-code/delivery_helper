@@ -31,8 +31,7 @@ class CustomLoginView(LoginView):
             return next_url
 
         try:
-            user_id = user.id
-            user = User.objects.get(id=user_id)
+            user = User.objects.get(id=user.id)
             return f"/{user.profile.user_type_id.type_name}/"
         except User.DoesNotExist:
             return "/dashboard/"
