@@ -29,7 +29,18 @@
                   placeholder="Enter your password"
                   />
         </div>
+        {% if form.errors %}
+        <div class="error-messages">
+          {% for field, errors in form.errors.items %}
+          {% for error in errors %}
+          <div role="alert" class="alert alert-error alert-soft">
+            <span>{{ error }}</span>
+          </div>
 
+          {% endfor %}
+          {% endfor %}
+        </div>
+        {% endif %}
         <button class="btn btn-primary btn-block">Log in</button>
 
       <!--   <div class="divider">Log in with social</div> -->
