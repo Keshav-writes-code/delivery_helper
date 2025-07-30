@@ -51,7 +51,7 @@ Your Database is required to have a user named : `root` with password `root`
 1. in the project root, run this for the Django Server
 
 ```sh
-uv run manage.py runserver
+uv run manage.py tailwind dev
 ```
 
 2. And also run this in a seperate terminal for the Frontend Dev Server from Vite
