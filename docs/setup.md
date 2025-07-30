@@ -46,6 +46,13 @@ Your Database is required to have a user named : `root` with password `root`
    uv run manage.py migrate
    ```
 
+3. Now add the Require Data into the `user_types` table
+
+- add a type_name : `customer`
+- set False the `partner_id_required` column
+- add a type_name : `delivery_agent`
+- set True the `partner_id_required` column
+
 ## Run Dev Server
 
 1. in the project root, run this for the Django Server
