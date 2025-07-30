@@ -16,7 +16,6 @@ def sign_up(request):
 
     else:
         form = RegisterForm()
-    print(form.errors)
     context = {"user_types": user_types.objects.all(), "form": form}
     return render(request, "registration/signup.html", context)
 
