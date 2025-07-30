@@ -48,7 +48,7 @@ class RegisterForm(UserCreationForm):
         partner_id = cleaned_data.get("partner_id")
 
         # Both fields are guaranteed to be cleaned and available
-        if user_type and user_type.id == 2:
+        if user_type and user_type.partner_id_required:
             if not partner_id or not partner_id.strip():
                 self.add_error(
                     "partner_id", "Partner ID is required for delivery agents."
