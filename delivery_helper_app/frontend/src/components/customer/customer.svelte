@@ -1,6 +1,8 @@
 <script lang="ts">
   import PickLocationFromMap from "./pick_location_from_map.svelte";
   let coordinates = $state(null);
+  // TODO: Fetch data from api using ky
+  // TODO: Add location_type attribute in backend
   let placeHolderLocation = [
     {
       location_uname: "keshav_house_1231",
