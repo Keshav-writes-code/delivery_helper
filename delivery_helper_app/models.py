@@ -4,6 +4,7 @@ from django.contrib.auth.models import User, BaseUserManager
 
 class user_types(models.Model):
     type_name = models.CharField(max_length=50, unique=True)
+    partner_id_required = models.BooleanField(default=False)
 
 
 class Profile(models.Model):
