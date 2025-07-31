@@ -1,8 +1,12 @@
-from django.urls import path, include
+from django.urls import path
 from django.contrib.auth import views as auth_views
 from . import views
 
 urlpatterns = [
+    path("api/get_customer_locations", views.get_customer_locations),
+    path("api/delete_customer_locations", views.delete_customer_locations),
+    path("api/add_modify_locations", views.add_or_modify_location),
+    path("api/get_delivery_agent_orders/", views.get_delivery_agent_orders),
     # Use custom login view instead of the default one
     path("login/", views.CustomLoginView.as_view(), name="login"),
     # Include other auth URLs (logout, password reset, etc.)
