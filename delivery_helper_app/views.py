@@ -1,7 +1,12 @@
 from django.http import HttpResponse, JsonResponse
-from .models import customer_order, location, Profile
+from .models import customer_order, location, Profile, user_types, User
 from django.views.decorators.csrf import csrf_exempt
 import json
+from django.shortcuts import render, redirect
+from django.contrib.auth.views import LoginView
+from django.contrib.auth import login
+from .forms import RegisterForm
+
 
 # Create your views here.
 
@@ -137,24 +142,22 @@ def add_or_modify_location(request):
 
 
 def get_delivery_agent_orders(request):
-    id = 2  
+    id = 2
 
-    orders = customer_order.objects.filter(
-        assigned_delivery_agent_id=id
-    ).values(
-        'order_id',
-        'order_name',
-        'price',
-        'is_delivered',
-        'date_of_order',
-        'date_of_delivery',
-        'customer_id',
-        'assigned_delivery_agent_id',
-        'order_location__id',
-        'order_location__location_name',
-        'order_location__latitude',
-        'order_location__longitude',
-        'order_location__owner_id',
+    orders = customer_order.objects.filter(assigned_delivery_agent_id=id).values(
+        "order_id",
+        "order_name",
+        "price",
+        "is_delivered",
+        "date_of_order",
+        "date_of_delivery",
+        "customer_id",
+        "assigned_delivery_agent_id",
+        "order_location__id",
+        "order_location__location_name",
+        "order_location__latitude",
+        "order_location__longitude",
+        "order_location__owner_id",
     )
 
     order_list = list(orders)
@@ -164,3 +167,32 @@ def get_delivery_agent_orders(request):
 
     return JsonResponse(order_list, safe=False)
 
+
+# Create your views here.
+def sign_up(request):
+    if request.method == "POST":
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect(user.profile.user_type_id.type_name)
+
+    else:
+        form = RegisterForm()
+    context = {"user_types": user_types.objects.all(), "form": form}
+    return render(request, "registration/signup.html", context)
+
+
+class CustomLoginView(LoginView):
+    template_name = "registration/login.html"
+
+    def get_success_url(self):
+        next_url = self.request.GET.get("next")
+        if next_url:
+            return next_url
+
+        try:
+            user = User.objects.get(id=self.request.user.id)
+            return f"/{user.profile.user_type_id.type_name}/"
+        except User.DoesNotExist:
+            return "/login/"
