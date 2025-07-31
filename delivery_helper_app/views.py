@@ -1,6 +1,7 @@
 from django.http import HttpResponse, JsonResponse
 from .models import customer_order, location, Profile, user_types, User
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
 import json
 from django.shortcuts import render, redirect
 from django.contrib.auth.views import LoginView
@@ -11,21 +12,24 @@ from .forms import RegisterForm
 # Create your views here.
 
 
+@login_required
 def get_customer_locations(request):
     # show locations which customer will add
-    id = 1
-    customer_locations = location.objects.filter(owner_id=id).values()
+    user = User.objects.get(id=request.user.id)
+    customer_locations = location.objects.filter(owner_id=user.profile.id).values()
     if not customer_locations:
         return HttpResponse("currently you have not added any location")
     return JsonResponse(list(customer_locations), safe=False)
 
 
+@login_required
 @csrf_exempt
 def delete_customer_locations(request):
     if request.method == "POST":
+        user = User.objects.get(id=request.user.id)
+        owner_id = user.profile.id
         try:
             data = json.loads(request.body.decode("utf-8"))
-            owner_id = 1
             if not isinstance(data, list):
                 return JsonResponse(
                     {"error": "Expected a list of locations"}, status=400
@@ -57,8 +61,12 @@ def delete_customer_locations(request):
     return JsonResponse({"error": "Only POST method is allowed"}, status=405)
 
 
+@login_required
 @csrf_exempt
 def add_or_modify_location(request):
+    user = User.objects.get(id=request.user.id)
+    owner_id = user.profile.id
+
     if request.method != "POST":
         return JsonResponse({"error": "Only POST method allowed."}, status=405)
 
@@ -71,7 +79,6 @@ def add_or_modify_location(request):
                 {"error": "Expected a list of location objects."}, status=400
             )
 
-        owner_id = 2
         try:
             owner = Profile.objects.get(id=owner_id)
         except Profile.DoesNotExist:
@@ -141,10 +148,12 @@ def add_or_modify_location(request):
         return JsonResponse({"error": f"Something went wrong: {str(e)}"}, status=500)
 
 
+@login_required
 def get_delivery_agent_orders(request):
-    id = 2
+    user = User.objects.get(id=request.user.id)
+    owner_id = user.profile.id
 
-    orders = customer_order.objects.filter(assigned_delivery_agent_id=id).values(
+    orders = customer_order.objects.filter(assigned_delivery_agent_id=owner_id).values(
         "order_id",
         "order_name",
         "price",
@@ -175,7 +184,7 @@ def sign_up(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect(user.profile.user_type_id.type_name)
+            return redirect(user.profile.user_type_id.type_name + "/")
 
     else:
         form = RegisterForm()
