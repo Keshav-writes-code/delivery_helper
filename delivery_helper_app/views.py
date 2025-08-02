@@ -187,7 +187,7 @@ def sign_up(request: HttpRequest):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect(user.profile.user_type_id.type_name + "/")
+            return redirect(f"/{user.profile.user_type_id.type_name}/")
 
     else:
         form = RegisterForm()
