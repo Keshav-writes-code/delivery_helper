@@ -177,7 +177,10 @@ def get_delivery_agent_orders(request):
     return JsonResponse(order_list, safe=False)
 
 
-# Create your views here.
+def delivery_agent(request):
+    return render(request, "delivery_helper_app/delivery_agent_page.html")
+
+
 def sign_up(request):
     if request.method == "POST":
         form = RegisterForm(request.POST)

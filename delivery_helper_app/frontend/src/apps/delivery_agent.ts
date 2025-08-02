@@ -1,0 +1,10 @@
+import { mount } from "svelte";
+import App from "../components/delivery_agent.svelte";
+import "virtual:uno.css";
+import "@unocss/reset/tailwind-compat.css";
+
+const app = mount(App, {
+  target: document.body,
+});
+
+export default app;

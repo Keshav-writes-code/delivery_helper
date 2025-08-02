@@ -11,7 +11,9 @@ export default defineConfig({
     emptyOutDir: true,
     manifest: "manifest.json",
     rollupOptions: {
-      input: {},
+      input: {
+        delivery_agent: "./src/apps/delivery_agent.ts",
+      },
     },
   },
 });
