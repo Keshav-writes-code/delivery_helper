@@ -5,12 +5,14 @@
   interface MapProps {
     apiKey: string;
     coordinates: { lat: number; lng: number } | null;
+    gMaps_loader: Loader;
   }
 
   // Define props with the $props rune
   let {
     apiKey = "GOOGLE_API_KEY", // Will use the global API key from Vite config
     coordinates = $bindable(),
+    gMaps_loader,
   }: MapProps = $props();
 
   // Flag to prevent infinite loop
@@ -135,12 +137,7 @@
 
   async function initMap(): Promise<void> {
     // Initialize the Google Maps loader
-    mapState.loaderInstance = new Loader({
-      apiKey,
-      version: "weekly",
-      libraries: ["places"],
-    });
-
+    mapState.loaderInstance = gMaps_loader;
     try {
       // Load the Google Maps API
       const google = await mapState.loaderInstance.load();
