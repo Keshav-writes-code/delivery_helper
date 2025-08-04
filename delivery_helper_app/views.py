@@ -105,15 +105,21 @@ def add_or_modify_location(request: HttpRequest):
                 owner_id=owner, location_name=new_loc["location_name"]
             ).first()
 
-            orders_not_delivered = (
-                customer_order.objects.filter(
-                    customer_id=owner,
-                    order_location=new_loc["location_name"],
-                    is_delivered=False,
+            location_obj = location.objects.filter(
+                owner_id=owner, location_name=new_loc["location_name"]
+            ).first()
+
+            orders_not_delivered = None
+            if location_obj:
+                orders_not_delivered = (
+                    customer_order.objects.filter(
+                        customer_id=owner,
+                        order_location=location_obj,  # Use the location object instead of string
+                        is_delivered=False,
+                    )
+                    .values()
+                    .first()
                 )
-                .values()
-                .first()
-            )
             print(orders_not_delivered)
             if existing and not orders_not_delivered:
                 existing.longitude = new_loc["longitude"]
