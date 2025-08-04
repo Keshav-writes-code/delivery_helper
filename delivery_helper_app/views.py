@@ -95,7 +95,7 @@ def add_or_modify_location(request: HttpRequest):
 
         for new_loc in data:
             print("Processing:", new_loc)
-            required_keys = {"location_name", "longitude", "latitude"}
+            required_keys = {"location_name", "longitude", "latitude","location_type"}
             if not required_keys.issubset(new_loc):
                 return JsonResponse(
                     {"error": f"Missing keys in: {new_loc}"}, status=400
