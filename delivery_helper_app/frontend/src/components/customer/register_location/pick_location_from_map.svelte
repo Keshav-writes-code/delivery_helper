@@ -2,7 +2,7 @@
   import { Loader } from "@googlemaps/js-api-loader";
 
   // Define interfaces for our component
-  interface MapProps {
+  interface Props {
     apiKey: string;
     coordinates: { lat: number; lng: number } | null;
     gMaps_loader: Loader;
@@ -13,7 +13,7 @@
     apiKey = "GOOGLE_API_KEY", // Will use the global API key from Vite config
     coordinates = $bindable(),
     gMaps_loader,
-  }: MapProps = $props();
+  }: Props = $props();
 
   // Flag to prevent infinite loop
   let isUpdatingFromMap = $state(false);
