@@ -1,6 +1,5 @@
 <script lang="ts">
   import { get_saved_location } from "./initialization";
-  import type { saved_location } from "./initialization";
   import RegisterLocation from "./register_location/register_location.svelte";
   import SavedLocations from "./saved_locations.svelte";
 

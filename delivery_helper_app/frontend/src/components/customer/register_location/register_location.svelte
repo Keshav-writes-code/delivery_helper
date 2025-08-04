@@ -1,7 +1,7 @@
 <script lang="ts">
   import ky from "ky";
   import RegisterLocationForm from "./register_location_form.svelte";
-  import { gMaps_loader, type saved_location } from "../initialization";
+  import { gMaps_loader } from "../initialization";
   import PickLocationFromMap from "./pick_location_from_map.svelte";
   import { getCityFromCoords } from "./reverse_geocoding";
 

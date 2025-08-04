@@ -1,12 +1,5 @@
 import ky from "ky";
 
-export interface saved_location {
-  location_name: string;
-  longitude: number;
-  latitude: number;
-  location_type: string;
-  city_level_address: string;
-}
 export async function get_saved_location(): Promise<saved_location[]> {
   let fetched_locations: {
     id: number;

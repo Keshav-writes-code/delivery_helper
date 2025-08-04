@@ -1,9 +1,8 @@
 <script lang="ts">
-  type PossibleStates = "idle" | "disabled" | "waiting" | "success" | "error";
   type Props = {
     tooltip?: string;
     class?: string;
-    state?: PossibleStates;
+    state?: PossibleSubmitStates;
     onclick: Function;
     label_text_html?: string;
     label_icon?: string;

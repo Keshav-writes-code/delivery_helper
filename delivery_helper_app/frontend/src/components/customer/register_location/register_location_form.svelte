@@ -1,6 +1,5 @@
 <script lang="ts">
   import SubmitButton from "../../common/submit_button.svelte";
-  import type { saved_location } from "../initialization";
   type Props = {
     new_locations: saved_location[];
     location_name: string;

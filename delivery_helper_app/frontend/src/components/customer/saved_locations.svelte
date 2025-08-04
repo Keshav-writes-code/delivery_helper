@@ -1,5 +1,4 @@
 <script lang="ts">
-  import type { saved_location } from "./initialization";
   type Props = {
     all_locations: saved_location[];
     deleted_locations: saved_location[];
