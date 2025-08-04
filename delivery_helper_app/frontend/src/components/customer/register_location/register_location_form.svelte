@@ -4,6 +4,7 @@
     new_locations: saved_location[];
     location_name: string;
     location_type: string;
+    submit_state: PossibleSubmitStates;
     on_submit: Function;
   };
 
@@ -12,6 +13,7 @@
     location_name = $bindable(),
     location_type = $bindable(),
     on_submit,
+    submit_state,
   }: Props = $props();
 </script>
 
@@ -65,5 +67,6 @@
     class="btn btn-block btn-soft flex-1 "
     label_text_html="Register"
     onclick={on_submit}
+    state={submit_state}
   />
 </div>
