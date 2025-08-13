@@ -139,9 +139,8 @@ def add_or_modify_location(request: HttpRequest):
                     location_name=new_loc["location_name"],
                     longitude=new_loc["longitude"],
                     latitude=new_loc["latitude"],
-                    location_type=new_loc['location_type'],
                     location_type=new_loc["location_type"],
-                    city_level_address=new_loc["city_level_address"]
+                    city_level_address=new_loc["city_level_address"],
                 )
                 created.append(new_loc["location_name"])
             else:
