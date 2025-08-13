@@ -1,4 +1,4 @@
-from django.urls import path, include
+from django.urls import path
 from django.contrib.auth import views as auth_views
 from . import views
 
@@ -42,4 +42,5 @@ urlpatterns = [
         name="password_reset_complete",
     ),
     path("signup/", views.sign_up, name="signup"),
+    path("customer/", views.customer, name="Customer Page"),
 ]

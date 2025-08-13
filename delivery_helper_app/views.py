@@ -1,5 +1,6 @@
-from django.http import HttpResponse, JsonResponse
-from .models import customer_order, location, Profile, user_types, User
+from django.http import HttpResponse, HttpRequest, JsonResponse
+from .models import customer_order, location, Profile, user_types
+from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 import json
@@ -10,10 +11,12 @@ from .forms import RegisterForm
 
 
 # Create your views here.
+def customer(request: HttpRequest):
+    return render(request, "delivery_helper_app/customer.html")
 
 
 @login_required
-def get_customer_locations(request):
+def get_customer_locations(request: HttpRequest):
     # show locations which customer will add
     user = User.objects.get(id=request.user.id)
     customer_locations = location.objects.filter(owner_id=user.profile.id).values()
@@ -24,7 +27,7 @@ def get_customer_locations(request):
 
 @login_required
 @csrf_exempt
-def delete_customer_locations(request):
+def delete_customer_locations(request: HttpRequest):
     if request.method == "POST":
         user = User.objects.get(id=request.user.id)
         owner_id = user.profile.id
@@ -63,7 +66,7 @@ def delete_customer_locations(request):
 
 @login_required
 @csrf_exempt
-def add_or_modify_location(request):
+def add_or_modify_location(request: HttpRequest):
     user = User.objects.get(id=request.user.id)
     owner_id = user.profile.id
 
@@ -92,7 +95,13 @@ def add_or_modify_location(request):
 
         for new_loc in data:
             print("Processing:", new_loc)
-            required_keys = {"location_name", "longitude", "latitude"}
+            required_keys = {
+                "location_name",
+                "longitude",
+                "latitude",
+                "location_type",
+                "city_level_address",
+            }
             if not required_keys.issubset(new_loc):
                 return JsonResponse(
                     {"error": f"Missing keys in: {new_loc}"}, status=400
@@ -102,15 +111,21 @@ def add_or_modify_location(request):
                 owner_id=owner, location_name=new_loc["location_name"]
             ).first()
 
-            orders_not_delivered = (
-                customer_order.objects.filter(
-                    customer_id=owner,
-                    order_location=new_loc["location_name"],
-                    is_delivered=False,
+            location_obj = location.objects.filter(
+                owner_id=owner, location_name=new_loc["location_name"]
+            ).first()
+
+            orders_not_delivered = None
+            if location_obj:
+                orders_not_delivered = (
+                    customer_order.objects.filter(
+                        customer_id=owner,
+                        order_location=location_obj,  # Use the location object instead of string
+                        is_delivered=False,
+                    )
+                    .values()
+                    .first()
                 )
-                .values()
-                .first()
-            )
             print(orders_not_delivered)
             if existing and not orders_not_delivered:
                 existing.longitude = new_loc["longitude"]
@@ -124,6 +139,9 @@ def add_or_modify_location(request):
                     location_name=new_loc["location_name"],
                     longitude=new_loc["longitude"],
                     latitude=new_loc["latitude"],
+                    location_type=new_loc['location_type'],
+                    location_type=new_loc["location_type"],
+                    city_level_address=new_loc["city_level_address"]
                 )
                 created.append(new_loc["location_name"])
             else:
@@ -149,7 +167,7 @@ def add_or_modify_location(request):
 
 
 @login_required
-def get_delivery_agent_orders(request):
+def get_delivery_agent_orders(request: HttpRequest):
     user = User.objects.get(id=request.user.id)
     owner_id = user.profile.id
 
@@ -178,7 +196,7 @@ def get_delivery_agent_orders(request):
 
 
 # Create your views here.
-def sign_up(request):
+def sign_up(request: HttpRequest):
     if request.method == "POST":
         form = RegisterForm(request.POST)
         if form.is_valid():
