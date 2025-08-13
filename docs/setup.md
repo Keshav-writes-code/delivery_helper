@@ -31,7 +31,7 @@ This guide will walk you through how to setup this project on your Machine to ru
 
 ## Setup Environment Variables
 
-1. Create a `.env` file with `VITE_GOOGLE_API_KEY` key and value is the Google API Key used for GMaps Integration. This api key can be generated from Goggle Cloud Console with Payment enablled
+1. Create a `.env` file with `VITE_GOOGLE_API_KEY` key and value is the Google API Key used for GMaps Integration. This api key can be generated from Google Cloud Console with Payment enabled
 
 ## Setup Database
 
