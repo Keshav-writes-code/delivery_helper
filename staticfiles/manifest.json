@@ -1,0 +1,11 @@
+{
+  "src/apps/customer.ts": {
+    "file": "assets/customer-Dc9-GkoD.js",
+    "name": "customer",
+    "src": "src/apps/customer.ts",
+    "isEntry": true,
+    "css": [
+      "assets/customer-Be5vzPm6.css"
+    ]
+  }
+}
