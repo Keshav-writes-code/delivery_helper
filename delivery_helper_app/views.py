@@ -135,7 +135,7 @@ def add_or_modify_location(request: HttpRequest):
 
             elif not existing:
                 location.objects.create(
-                    owner_id=owner,
+                    owner_id=owner.id,
                     location_name=new_loc["location_name"],
                     longitude=new_loc["longitude"],
                     latitude=new_loc["latitude"],
