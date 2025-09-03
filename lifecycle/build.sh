@@ -17,6 +17,9 @@ bun run build
 echo "📁 Returning to project root..."
 cd ../../
 
+# RUn Tailwind Build
+uv run manage.py tailwind build
+
 # Run collectstatic with no input prompt
 echo "📦 Collecting static files..."
 uv run manage.py collectstatic --noinput
