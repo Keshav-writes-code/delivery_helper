@@ -3,6 +3,7 @@ from django.contrib.auth import views as auth_views
 from . import views
 
 urlpatterns = [
+    path("", views.home, name="home"),
     path("api/get_customer_locations", views.get_customer_locations),
     path("api/delete_customer_locations", views.delete_customer_locations),
     path("api/add_modify_locations", views.add_or_modify_location),

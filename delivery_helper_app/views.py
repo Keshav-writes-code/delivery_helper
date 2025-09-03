@@ -11,6 +11,10 @@ from .forms import RegisterForm
 
 
 # Create your views here.
+def home(request: HttpRequest):
+    return render(request, "delivery_helper_app/home.html")
+
+
 def customer(request: HttpRequest):
     return render(request, "delivery_helper_app/customer.html")
 
