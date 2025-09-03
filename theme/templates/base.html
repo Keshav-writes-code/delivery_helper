@@ -1,6 +1,6 @@
 {% load static tailwind_tags %}
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
     <title>Django Tailwind</title>
     <meta charset="UTF-8">
@@ -9,7 +9,8 @@
     {% tailwind_css %}
 </head>
 
-<body class="min-h-screen flex flex-col">
+<body class="min-h-screen flex flex-col ">
   {% block content %}{% endblock %}
+</div>
 </body>
 </html>

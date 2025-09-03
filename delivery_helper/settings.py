@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-s=kozm3is-@0h+%1!9ipnkrx-%i_9o^bgs$c2xr#sp)b7(zz8z
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["droptag.pythonanywhere.com", "localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ["droptag.pythonanywhere.com"]
 
 
 # Application definition
@@ -84,8 +84,12 @@ WSGI_APPLICATION = "delivery_helper.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "delivery_management_system",
+        "USER": "root",
+        "PASSWORD": "root",
+        "HOST": "localhost",
+        "PORT": "3306",
     }
 }
 
